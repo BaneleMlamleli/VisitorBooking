@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The below is all the options that will be displayed in the menu bar -->
+    <item
+        android:id="@+id/registerVisitor"
+        android:icon="@drawable/ic_person_add_black_24dp"
+        android:title="Register visitor"></item>
+
+    <item
+        android:id="@+id/displayVisitors"
+        android:icon="@drawable/ic_assignment_black_24dp"
+        android:title="Display visitors"></item>
+</menu>
