@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        menuLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        menuLayout = findViewById(R.id.drawerLayout);
         toggleBar = new ActionBarDrawerToggle(this, menuLayout, R.string.open, R.string.close);
         toggleBar.setDrawerIndicatorEnabled(true);
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final NavigationView nav_view = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
