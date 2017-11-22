@@ -5,4 +5,9 @@
     <string name="visitor_bookings">VISITOR BOOKINGS</string>
     <string name="register_visitor">Register visitor</string>
     <string name="display_visitors">Display visitors</string>
+    <string name="register">Register</string>
+    <string name="reason_for_visit">Reason for visit</string>
+    <string name="person_name_you_are_visting">Person name you are visting</string>
+    <string name="your_contact_number">Your contact number</string>
+    <string name="your_full_name">Your full name</string>
 </resources>
