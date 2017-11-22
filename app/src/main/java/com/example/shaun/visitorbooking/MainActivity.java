@@ -26,6 +26,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        EditText visitorName = findViewById(R.id.txtVisitorName);
+        EditText contactNumber = findViewById(R.id.txtContactNumber);
+        EditText personVisitingNumber = findViewById(R.id.txtPersonVisitingNumber);
+        final EditText reason = findViewById(R.id.txtReason);
+
+        final String name = visitorName.getText().toString();
+        final String persnVisitingNum = personVisitingNumber.getText().toString();
+        final String contctNum = contactNumber.getText().toString();
+        final String reasn = reason.getText().toString();
+        final Button btnReg = findViewById(R.id.btnRegister);
+
         menuLayout = findViewById(R.id.drawerLayout);
         toggleBar = new ActionBarDrawerToggle(this, menuLayout, R.string.open, R.string.close);
         toggleBar.setDrawerIndicatorEnabled(true);
@@ -58,10 +69,24 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        btnReg.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        writeToFile(name, persnVisitingNum, contctNum, reasn);
+                        Toast.makeText(getApplicationContext(), "Visitor registered", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return toggleBar.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
+
+    public void writeToFile(String nm, String perVisitingNum, String contNum, String rsn) {
+        Toast.makeText(getApplicationContext(), "Button clicked, " + nm + ", xx", Toast.LENGTH_SHORT).show();
     }
 }
