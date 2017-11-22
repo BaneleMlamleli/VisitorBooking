@@ -4,10 +4,10 @@
     <item
         android:id="@+id/registerVisitor"
         android:icon="@drawable/ic_person_add_black_24dp"
-        android:title="Register visitor"></item>
+        android:title="@string/register_visitor"></item>
 
     <item
         android:id="@+id/displayVisitors"
         android:icon="@drawable/ic_assignment_black_24dp"
-        android:title="Display visitors"></item>
+        android:title="@string/display_visitors"></item>
 </menu>

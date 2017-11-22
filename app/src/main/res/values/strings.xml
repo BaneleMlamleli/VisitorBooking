@@ -2,4 +2,7 @@
     <string name="app_name">Visitor Booking</string>
     <string name="close">Close</string>
     <string name="open">Open</string>
+    <string name="visitor_bookings">VISITOR BOOKINGS</string>
+    <string name="register_visitor">Register visitor</string>
+    <string name="display_visitors">Display visitors</string>
 </resources>
