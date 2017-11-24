@@ -52,19 +52,10 @@
             android:hint="@string/person_name_you_are_visting"
             android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtPersonVisitingNumber"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="@string/reason_for_visit" />
-
         <EditText
             android:id="@+id/txtReason"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="235dp"
             android:layout_above="@+id/btnRegister"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="13dp"
@@ -80,10 +71,9 @@
             android:id="@+id/btnRegister"
             android:layout_width="110dp"
             android:layout_height="65dp"
-            android:layout_alignLeft="@+id/textView5"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/textView5"
-            android:layout_marginBottom="12dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
             android:text="@string/register" />
 
     </RelativeLayout>
