@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                             FileOutputStream fileout = openFileOutput(fileName, MODE_PRIVATE);
                             OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
                             outputWriter.append(text.toString());
+                            outputWriter.append("\n");
                             //outputWriter.write(text.toString());
                             outputWriter.close();
 

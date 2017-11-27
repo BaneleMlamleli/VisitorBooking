@@ -28,9 +28,9 @@ public class DisplayVisitors extends AppCompatActivity {
         setContentView(R.layout.activity_display_visitors);
 
         //Enabling TextView field to be scrollable
-        txtDisplayVisitors = (TextView) findViewById(R.id.txtDisplayVisitors);
+        txtDisplayVisitors = findViewById(R.id.txtDisplayVisitors);
         txtDisplayVisitors.setMovementMethod(new ScrollingMovementMethod());
-        btnDisplayVisitors = (Button) findViewById(R.id.btnDisplayVisitors);
+        btnDisplayVisitors = findViewById(R.id.btnDisplayVisitors);
 
         //
         final Spinner dateSpinner = findViewById(R.id.snpSelectDate);
@@ -53,29 +53,29 @@ public class DisplayVisitors extends AppCompatActivity {
         } else {
             fullDate = dd + "-" + month + "-" + year;
         }
-        final String dataFile = fullDate + ".txt";
+        final String dataFileName = fullDate + ".txt";
 
         //============================
 
-        boolean exst = true;
+        boolean exst;
         ArrayList<String> fileNames = new ArrayList<>();
-        int index = 0;
-        String newDataFile = dataFile;
+        fileNames.add(0, dd);
+        int index = 1;
+        String newDataFile = dataFileName;
+        int dt = Integer.parseInt(fullDate.substring(0, 2));
+        File file;
         do {
-            int dt = Integer.parseInt(newDataFile.substring(0, 2));
-            File file = new File(newDataFile);
+            file = new File(newDataFile);
             if (file.exists()) {
-                //System.out.println("file is already there");
-                dt -= 1;
-                newDataFile = dt + newDataFile.substring(2, newDataFile.length());
-                fileNames.add(index, newDataFile);
+                dt = dt - 1;
+                newDataFile = dt + fullDate.substring(2, fullDate.length()) + ".txt";
+                fileNames.add(index, dt + fullDate.substring(2, fullDate.length()));
                 index += 1;
                 exst = true;
             } else {
                 exst = false;
-                //System.out.println("Not find file ");
             }
-        } while (exst != false);
+        } while (exst);
 
 
         //============================
@@ -83,7 +83,7 @@ public class DisplayVisitors extends AppCompatActivity {
         // Adding dates for the date spinner
         ArrayList<String> datesSpinnerArray = new ArrayList<>();
         for (int i = 0; i <= fileNames.size(); i++) {
-            datesSpinnerArray.add(i, fileNames.get(i).toString());
+            datesSpinnerArray.add(i, fileNames.get(i));
         }
 
         ArrayAdapter<String> datesArrayAdapter = new ArrayAdapter<>(
@@ -102,23 +102,22 @@ public class DisplayVisitors extends AppCompatActivity {
                 //====================
 
                 try {
-                    FileInputStream fileIn = openFileInput(dataFile);
-                    InputStreamReader InputRead = new InputStreamReader(fileIn);
+                    FileInputStream fileIn = openFileInput(dataFileName);
+                    InputStreamReader inputRead = new InputStreamReader(fileIn);
 
                     final int READ_BLOCK_SIZE = 1000;
 
                     char[] inputBuffer = new char[READ_BLOCK_SIZE];
-                    String s = "";
+                    String textFileOutput = "";
                     int charRead;
 
-                    while ((charRead = InputRead.read(inputBuffer)) > 0) {
+                    while ((charRead = inputRead.read(inputBuffer)) > 0) {
                         // char to string conversion
                         String readstring = String.copyValueOf(inputBuffer, 0, charRead);
-                        s += readstring;
+                        textFileOutput += readstring + "\n";
                     }
-                    txtDisplayVisitors.setText(s);
-                    Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-                    InputRead.close();
+                    txtDisplayVisitors.setText(textFileOutput);
+                    inputRead.close();
 
                 } catch (Exception e) {
                     e.printStackTrace();
