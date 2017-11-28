@@ -25,7 +25,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="@string/your_full_name"
-            android:inputType="textPersonName" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/txtContactNumber"
@@ -50,7 +50,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="@string/person_name_you_are_visting"
-            android:inputType="textPersonName" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/txtReason"
@@ -61,7 +61,7 @@
             android:layout_marginBottom="13dp"
             android:background="@drawable/gradient"
             android:gravity="top"
-            android:hint="Reason for visit"
+            android:hint="@string/reason_for_visit"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="2dp"
@@ -75,7 +75,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="15dp"
             android:text="@string/register" />
-
     </RelativeLayout>
 
     <!-- This is the navigation view that will contain all the items and it will be hidden-->

@@ -1,9 +1,6 @@
 package com.example.shaun.visitorbooking;
 
-import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
@@ -19,8 +15,6 @@ import android.widget.*;
 import java.text.DateFormat;
 import java.util.Date;
 import java.io.*;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,13 +27,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText visitorName = findViewById(R.id.txtVisitorName);
-        EditText contactNumber = findViewById(R.id.txtContactNumber);
-        EditText personVisitingNumber = findViewById(R.id.txtPersonVisitingNumber);
-        final EditText reason = findViewById(R.id.txtReason);
+        final EditText visitorName = (EditText) findViewById(R.id.txtVisitorName);
+        EditText contactNumber = (EditText) findViewById(R.id.txtContactNumber);
+        EditText personVisitingNumber = (EditText) findViewById(R.id.txtPersonVisitingNumber);
+        final EditText reason = (EditText) findViewById(R.id.txtReason);
 
         /* Allowing the EditText field to be scrollable */
         reason.setMovementMethod(new ScrollingMovementMethod());
+
+        final byte[] nameValue = visitorName.getText().toString().getBytes();
 
         final String name = visitorName.getText().toString();
         final String persnVisitingNum = personVisitingNumber.getText().toString();
@@ -84,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "" + nameValue[0], Toast.LENGTH_SHORT).show();
                         String fullDate;
                         /*The below code will generate today's date in the format dd-month-yyyy e.g., 22-November-2017
                         * This code is for naming the txt file with the current date. e.g., 22-November-2017.txt
@@ -100,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             fullDate = dd + "-" + month + "-" + year;
                         }
-                        String text = "Visitor: " + name + "\nPerson visiting: " + persnVisitingNum +
-                                "\nVisitor number: " + contctNum + "\nReason: " + reasn + "\n======================";
+                        String text = "Visitor:\t" + name + "\nPerson visiting:\t" + persnVisitingNum +
+                                "\nVisitor number:\t" + contctNum + "\nReason:\t" + reasn;
                         String fileName = fullDate + ".txt";
 
                         //================
@@ -111,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                             OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
                             outputWriter.append(text.toString());
                             outputWriter.append("\n");
-                            //outputWriter.write(text.toString());
+                            outputWriter.append("\t\t\t\t* * * * * * * * * * * * * * * * * *");
                             outputWriter.close();
 
                             //display file saved message
@@ -121,19 +118,6 @@ public class MainActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
-                        //================
-
-                        /*File file = new File(Environment.getExternalStorageDirectory(), fileName);
-                        try{
-                            FileOutputStream fileOutput = new FileOutputStream(file);
-                            fileOutput.write(text.toString().getBytes());
-                            fileOutput.close();
-                            Toast.makeText(getApplicationContext(), "Visitor registered", Toast.LENGTH_SHORT).show();
-                        }catch (IOException e){
-                            e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "Error writing to file "+fileName, Toast.LENGTH_SHORT).show();
-                        }*/
                     }
                 }
         );
