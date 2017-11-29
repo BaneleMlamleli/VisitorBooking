@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final EditText visitorName = (EditText) findViewById(R.id.txtVisitorName);
-        EditText contactNumber = (EditText) findViewById(R.id.txtContactNumber);
-        EditText personVisitingNumber = (EditText) findViewById(R.id.txtPersonVisitingNumber);
+        final EditText contactNumber = (EditText) findViewById(R.id.txtContactNumber);
+        final EditText personVisitingNumber = (EditText) findViewById(R.id.txtPersonVisitingNumber);
         final EditText reason = (EditText) findViewById(R.id.txtReason);
 
         /* Allowing the EditText field to be scrollable */
@@ -37,10 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         final byte[] nameValue = visitorName.getText().toString().getBytes();
 
-        final String name = visitorName.getText().toString();
-        final String persnVisitingNum = personVisitingNumber.getText().toString();
-        final String contctNum = contactNumber.getText().toString();
-        final String reasn = reason.getText().toString();
         final Button btnReg = findViewById(R.id.btnRegister);
 
         menuLayout = findViewById(R.id.drawerLayout);
@@ -80,7 +76,11 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "" + nameValue[0], Toast.LENGTH_SHORT).show();
+                        final String name = visitorName.getText().toString();
+                        final String persnVisitingNum = personVisitingNumber.getText().toString();
+                        final String contctNum = contactNumber.getText().toString();
+                        final String reasn = reason.getText().toString();
+
                         String fullDate;
                         /*The below code will generate today's date in the format dd-month-yyyy e.g., 22-November-2017
                         * This code is for naming the txt file with the current date. e.g., 22-November-2017.txt
