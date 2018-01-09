@@ -1,5 +1,6 @@
 package com.example.shaun.visitorbooking;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -54,14 +55,12 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.registerVisitor) {
-                    Toast.makeText(getApplicationContext(), "Register visitor", Toast.LENGTH_SHORT).show();
                     Intent registerVisitorIntent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(registerVisitorIntent);
                     //Changing the title of the bar according to the selected option
                     getSupportActionBar().setTitle("Register visitor");
                 } else {
                     if (id == R.id.displayVisitors) {
-                        Toast.makeText(getApplicationContext(), "Display visitors", Toast.LENGTH_SHORT).show();
                         Intent displayVisitorsIntent = new Intent(getApplicationContext(), DisplayVisitors.class);
                         startActivity(displayVisitorsIntent);
                         //Changing the title of the bar according to the selected option
@@ -97,25 +96,25 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             fullDate = dd + "-" + month + "-" + year;
                         }
-                        String text = "Visitor:\t" + name + "\nPerson visiting:\t" + persnVisitingNum +
-                                "\nVisitor number:\t" + contctNum + "\nReason:\t" + reasn;
+                        String text = "Visitor:\t\t\t" + name + "\nPerson visiting:\t" + persnVisitingNum +
+                                "\nVisitor number:\t\t" + contctNum + "\nReason:\t\t\t\t" + reasn;
                         String fileName = fullDate + ".txt";
 
                         //================
 
                         try {
-                            FileOutputStream fileout = openFileOutput(fileName, MODE_PRIVATE);
+                            FileOutputStream fileout = openFileOutput(fileName, Context.MODE_APPEND);
                             OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
                             outputWriter.append(text.toString());
                             outputWriter.append("\n");
-                            outputWriter.append("\t\t\t\t* * * * * * * * * * * * * * * * * *");
+                            outputWriter.append("\t\t\t\t* * * * * * * * * * * * * * * * * \n");
                             outputWriter.close();
 
                             //display file saved message
                             Toast.makeText(getBaseContext(), "File saved successfully!",
                                     Toast.LENGTH_SHORT).show();
 
-                        } catch (Exception e) {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }

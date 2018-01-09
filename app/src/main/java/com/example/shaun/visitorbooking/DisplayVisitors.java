@@ -1,7 +1,7 @@
 package com.example.shaun.visitorbooking;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -10,11 +10,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -35,11 +35,9 @@ public class DisplayVisitors extends AppCompatActivity {
         txtDisplayVisitors.setMovementMethod(new ScrollingMovementMethod());
         btnDisplayVisitors = findViewById(R.id.btnDisplayVisitors);
 
-        final Spinner dateSpinner = findViewById(R.id.snpSelectDate);
-        String date;
+        final Spinner fileNameSpinner = findViewById(R.id.snpSelectDate);
         //============================
 
-        String fullDate;
         /*
         * The below code will generate today's date in the format dd-month-yyyy e.g., 22-November-2017
         * This code is for naming the txt file with the current date. e.g., 22-November-2017.txt
@@ -48,8 +46,8 @@ public class DisplayVisitors extends AppCompatActivity {
         String day = myDate.substring(0, 2);
         String month = myDate.substring(3, (myDate.length() - 5));
         String year = myDate.substring((myDate.length() - 4), myDate.length());
-
-        //If the date is a single digit it is going to add a zero to make it like this, '01'
+        String fullDate;
+        //If the date is a single digit it is going to be padded zero to make it double digits, like this: '01'
         if (day.length() == 1) {
             day = "0" + day;
             fullDate = day + "-" + month + "-" + year;
@@ -60,53 +58,62 @@ public class DisplayVisitors extends AppCompatActivity {
 
         //============================
 
-        boolean fileExist = true;
+
+        /*
         ArrayList<String> fileNames = new ArrayList<>();
-        fileNames.add(0, day);
-        int index = 1;
+        int index = 0;
         String newDataFile = dataFileName;
-        //int dt = Integer.parseInt(day);
         Date tdy = new Date();
         int today = tdy.getDate();
         File file;
-        do {
+        while(today != 0){
             file = new File(newDataFile);
-            if (file.exists()) {
-                today -= 1;
+            if (file.exists()){
+                fileNames.add(index, today + fullDate.substring(2, fullDate.length())+".txt");
                 newDataFile = today + fullDate.substring(2, fullDate.length()) + ".txt";
-                fileNames.add(index, today + fullDate.substring(2, fullDate.length()));
+                today -= 1;
                 index += 1;
-                fileExist = true;
-            } else {
-                fileExist = false;
             }
-        } while (fileExist != false);
+        }*/
 
         //============================
 
         // Adding dates for the date spinner
         ArrayList<String> datesSpinnerArray = new ArrayList<>();
-        for (int i = 0; i <= fileNames.size() - 1; i++) {
-            datesSpinnerArray.add(i, fileNames.get(i));
+        Date dt = new Date();
+        int fiveFilesOnly = 0;   //This will allow the program to only display five files
+        int today = dt.getDate();
+        while ((today != 0) && (fiveFilesOnly != 5)) {
+            String strToday = Integer.toString(today);
+            if (strToday.length() == 1) {
+                strToday = "0" + strToday;
+                datesSpinnerArray.add(strToday + dataFileName.substring(2, dataFileName.length()));
+            } else {
+                datesSpinnerArray.add(today + dataFileName.substring(2, dataFileName.length()));
+            }
+            today -= 1;
+            fiveFilesOnly += 1;
         }
 
         ArrayAdapter<String> datesArrayAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, datesSpinnerArray);
 
         datesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dateSpinner.setAdapter(datesArrayAdapter);
+        fileNameSpinner.setAdapter(datesArrayAdapter);
 
+        //============================
 
+        //button for reading the text file and displaying
         btnDisplayVisitors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fileName = dateSpinner.getSelectedItem().toString();
-                Toast.makeText(getApplicationContext(), fileName, Toast.LENGTH_SHORT).show();
+                //Getting the file to be read from the option in the spinner
+                final String fileName = fileNameSpinner.getSelectedItem().toString();
 
                 //====================
 
                 try {
-                    FileInputStream fileIn = openFileInput(dataFileName);
+                    FileInputStream fileIn = openFileInput(fileName);
                     InputStreamReader inputRead = new InputStreamReader(fileIn);
 
                     char[] inputBuffer = new char[1000];
